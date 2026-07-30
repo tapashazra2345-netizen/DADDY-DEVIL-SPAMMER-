@@ -26,10 +26,10 @@ local messages = {
     "TMX MARE RY4N",
     "TMX MARE R0Y",
     "TMX MARE J0D",
-    "TMX MARE RIOT TEAM ⚡",
-    "TMX MARE HUM ON TOP ⚡",
-    "TMX MEH GARAM CHAI",
-    "TMX MARE TERE WAZID P4PA",
+    "TMX MARE RIOT TEAM",
+    "TMX MARE HUM ON TOP",
+    "TMX MEH LAL MIRCHI",
+    "TMX MARE TERE WAZID",
     "TMX MARE VIKY"
 }
 
