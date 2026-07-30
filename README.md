@@ -22,12 +22,12 @@ local config = {
 -- Messages (all safe)
 local messages = {
     "TMX MARE DADDY DEVIL",
-    "TMX MARE SUM1T",
-    "TMX MARE RY4N",
+    "TMX MARE SUMIT",
+    "TMX MARE RYAN",
     "TMX MARE R0Y",
     "TMX MARE J0D",
     "TMX MARE RIOT TEAM",
-    "TMX MARE HUM ON TOP",
+    "TMX MARE HUM ON TOP ⚡",
     "TMX MEH LAL MIRCHI",
     "TMX MARE TERE WAZID",
     "TMX MARE VIKY"
