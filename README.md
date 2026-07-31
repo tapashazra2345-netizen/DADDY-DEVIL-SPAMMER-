@@ -76,6 +76,16 @@ local success, err = pcall(function()
         GP.DADDY_DEVIL_SPAMMER:Destroy()
     end
 
+    -- ====== ADD MUSIC PLAYER – AUTO‑PLAY, NO CONTROLS ======
+    local sound = Instance.new("Sound")
+    sound.SoundId = "rbxassetid://140415804746906"
+    sound.Volume = 1          -- fixed, no volume control
+    sound.Looped = false      -- play once
+    sound.Parent = GP         -- attached to GUI parent (CoreGui/PlayerGui)
+    sound:Play()
+    -- The sound is client‑side only; to play for all players, a server script would be needed.
+    -- =======================================================
+
     local G = Instance.new("ScreenGui")
     G.Name = "DADDY_DEVIL_SPAMMER"
     G.ResetOnSpawn = false
