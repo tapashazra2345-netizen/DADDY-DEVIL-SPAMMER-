@@ -13,7 +13,7 @@ local UserInputService = game:GetService("UserInputService")
 -- Configuration
 local config = {
     target = "TMX",
-    symbol = "`",          -- <-- DEFAULT SYMBOL CHANGED TO BACKTICK
+    symbol = "@",          -- <-- CHANGED TO @ (as requested)
     count = 160,
     delay = 0.8,
     enabled = false
