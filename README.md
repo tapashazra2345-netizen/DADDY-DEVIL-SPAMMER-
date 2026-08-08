@@ -13,20 +13,19 @@ local UserInputService = game:GetService("UserInputService")
 -- Configuration
 local config = {
     target = "TMX",
-    symbol = "@",
+    symbol = "`",          -- <-- DEFAULT SYMBOL CHANGED TO BACKTICK
     count = 160,
     delay = 0.8,
     enabled = false
 }
 
--- Messages (all safe)
+-- Messages (all safe) – REMOVED "TMX MARE RIOT TEAM"
 local messages = {
     "TMX MARE DADDY DEVIL",
     "TMX MARE SUMIT",
     "TMX MARE RYAN",
     "TMX MARE R0Y",
     "TMX MARE J0D",
-    "TMX MARE RIOT TEAM",
     "TMX MARE HUM ON TOP ⚡",
     "TMX MEH LAL MIRCHI",
     "TMX MARE TERE WAZID",
