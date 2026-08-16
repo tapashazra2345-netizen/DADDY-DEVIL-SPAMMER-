@@ -24,12 +24,13 @@ local messages = {
     "TMX MARE DADDY DEVIL",
     "TMX MARE SUMIT",
     "TMX MARE RYAN",
-    "TMX MARE R0Y",
-    "TMX MARE J0D",
+    "TMX MEH JHAL MURI",
+    "TMX MARE ROY",
+    "TMX MARE JOD",
     "TMX MARE HUM ON TOP ⚡",
     "TMX MEH LAL MIRCHI",
     "TMX MARE TERE WAZID",
-    "TMX MARE VIKY"
+    "TMX MEH MASALA CHAI"
 }
 
 local currentMsg = 1
