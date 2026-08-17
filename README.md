@@ -13,24 +13,24 @@ local UserInputService = game:GetService("UserInputService")
 -- Configuration
 local config = {
     target = "TMX",
-    symbol = "@",          -- <-- CHANGED TO @ (as requested)
-    count = 160,
+    symbol = "@",
+    count = 150,          -- <-- CHANGED to 150 (was 160)
     delay = 0.8,
     enabled = false
 }
 
--- Messages (all safe) – REMOVED "TMX MARE RIOT TEAM"
+-- UPDATED MESSAGES WITH EMOJIS (your list)
 local messages = {
-    "TMX MARE DADDY DEVIL",
-    "TMX MARE SUMIT",
-    "TMX MARE RYAN",
-    "TMX MEH JHAL MURI",
-    "TMX MARE ROY",
-    "TMX MARE JOD",
-    "TMX MARE HUM ON TOP ⚡",
-    "TMX MEH LAL MIRCHI",
-    "TMX MARE TERE WAZID",
-    "TMX MEH MASALA CHAI"
+    "👿 TMX MARE DADDY DEVIL 👿",
+    "👑 TMX MARE SUMIT 👑",
+    "🦅 TMX MARE RYAN 🦅",
+    "🌶️ TMX MEH JHAL MURI 🌶️",
+    "👑 TMX MARE ROY 👑",
+    "🤝 TMX MARE JOD 🤝",
+    "⚡ TMX MARE HUM ON TOP ⚡",
+    "🌶️ TMX MEH LAL MIRCHI 🌶️",
+    "🗿 TMX MARE TERE WAZID 🗿",
+    "☕ TMX MEH MASALA CHAI ☕"
 }
 
 local currentMsg = 1
@@ -83,7 +83,6 @@ local success, err = pcall(function()
     sound.Looped = false      -- play once
     sound.Parent = GP         -- attached to GUI parent (CoreGui/PlayerGui)
     sound:Play()
-    -- The sound is client‑side only; to play for all players, a server script would be needed.
     -- =======================================================
 
     local G = Instance.new("ScreenGui")
@@ -246,7 +245,7 @@ local success, err = pcall(function()
 
     createField("🎯 TARGET", config.target, 0.05, 68, function(v) config.target = v end)
     createField("✏️ SYMBOL", config.symbol, 0.51, 68, function(v) config.symbol = v end)
-    createField("🔢 COUNT", config.count, 0.05, 125, function(v) config.count = tonumber(v) or 160 end, true)
+    createField("🔢 COUNT", config.count, 0.05, 125, function(v) config.count = tonumber(v) or 150 end, true)   -- now defaults to 150
     createField("⏱️ SPEED", config.delay, 0.51, 125, function(v) config.delay = tonumber(v) or 0.8 end, true)
 
     local line2 = Instance.new("Frame", M)
@@ -417,7 +416,8 @@ local success, err = pcall(function()
 
     print("✅ DADDY DEVIL SPAMMER loaded successfully!")
 
-    -- ====== SEND INITIAL LOAD MESSAGE WITH @x140 ======
+    -- ====== SEND INITIAL LOAD MESSAGE ======
+    -- If you want the load message to also use 150 symbols, change the 140 below to 150.
     task.wait(0.5)
     pcall(function()
         send(string.rep("@", 140) .. " DADDY DEVIL SPAMMER LOADED ⚡😈")
