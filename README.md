@@ -25,7 +25,7 @@ local messages = {
     "👑 TMX MARE SUMIT 👑",
     "🦅 TMX MARE RYAN 🦅",
     "🌶️ TMX MEH JHAL MURI 🌶️",
-    "👑 TMX MARE ROY 👑",
+    "😹 TMX MEH GOTE 😹",
     "🤝 TMX MARE JOD 🤝",
     "⚡ TMX MARE HUM ON TOP ⚡",
     "🌶️ TMX MEH LAL MIRCHI 🌶️",
