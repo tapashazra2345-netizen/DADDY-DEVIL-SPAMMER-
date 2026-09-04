@@ -29,7 +29,7 @@ local messages = {
     "🤝 TMX MARE JOD 🤝",
     "⚡ TMX MARE HUM ON TOP ⚡",
     "🌶️ TMX MEH LAL MIRCHI 🌶️",
-    "🗿 TMX MARE TERE WAZID 🗿",
+    "🗿 TMX MARE WAZID 🗿",
     "☕ TMX MEH MASALA CHAI ☕"
 }
 
