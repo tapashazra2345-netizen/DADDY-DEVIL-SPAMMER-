@@ -1,6 +1,7 @@
 -- ============================================
 -- DADDY DEVIL SPAMMER – DELTA OPTIMIZED
 -- (No close button, safe messages)
+-- LOADING SCREEN + BxD CHAT BUTTON
 -- ============================================
 
 local TCS = game:GetService("TextChatService")
@@ -9,17 +10,19 @@ local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
 local TweenService = game:GetService("TweenService")
 local UserInputService = game:GetService("UserInputService")
+local HttpService = game:GetService("HttpService")
+local SoundService = game:GetService("SoundService")
 
 -- Configuration
 local config = {
     target = "TMX",
     symbol = "@",
-    count = 150,          -- <-- CHANGED to 150 (was 160)
+    count = 150,          -- as requested
     delay = 0.8,
     enabled = false
 }
 
--- UPDATED MESSAGES WITH EMOJIS (your list)
+-- UPDATED MESSAGES WITH EMOJIS
 local messages = {
     "👿 TMX MARE DADDY DEVIL 👿",
     "👑 TMX MARE SUMIT 👑",
@@ -75,22 +78,69 @@ local success, err = pcall(function()
         GP.DADDY_DEVIL_SPAMMER:Destroy()
     end
 
-    -- ====== ADD MUSIC PLAYER – AUTO‑PLAY, NO CONTROLS ======
-    local sound = Instance.new("Sound")
-    sound.SoundId = "rbxassetid://140415804746906"
-    sound.Volume = 1          -- fixed, no volume control
-    sound.Looped = false      -- play once
-    sound.Parent = GP         -- attached to GUI parent (CoreGui/PlayerGui)
-    sound:Play()
-    -- =======================================================
-
     local G = Instance.new("ScreenGui")
     G.Name = "DADDY_DEVIL_SPAMMER"
     G.ResetOnSpawn = false
     G.IgnoreGuiInset = true
     G.Parent = GP
 
-    -- ====== UI BUILDING (your original design) ======
+    -- ====== LOADING SCREEN – 3 SECONDS ======
+    local loading = Instance.new("Frame", G)
+    loading.Size = UDim2.fromScale(1, 1)
+    loading.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+    loading.ZIndex = 100
+    loading.Parent = G
+
+    local loadingTitle = Instance.new("TextLabel", loading)
+    loadingTitle.Size = UDim2.new(0.8, 0, 0, 70)
+    loadingTitle.Position = UDim2.new(0.1, 0, 0.35, 0)
+    loadingTitle.BackgroundTransparency = 1
+    loadingTitle.Text = "DADDY DEVIL SPAMMER 😈⚡"
+    loadingTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
+    loadingTitle.TextScaled = true
+    loadingTitle.Font = Enum.Font.GothamBold
+    loadingTitle.ZIndex = 101
+
+    local loadingStatus = Instance.new("TextLabel", loading)
+    loadingStatus.Size = UDim2.new(0.8, 0, 0, 30)
+    loadingStatus.Position = UDim2.new(0.1, 0, 0.5, 0)
+    loadingStatus.BackgroundTransparency = 1
+    loadingStatus.Text = "⚡ LOADING..."
+    loadingStatus.TextColor3 = Color3.fromRGB(200, 200, 200)
+    loadingStatus.TextSize = 20
+    loadingStatus.Font = Enum.Font.Gotham
+    loadingStatus.ZIndex = 101
+
+    local progressBack = Instance.new("Frame", loading)
+    progressBack.Size = UDim2.new(0.6, 0, 0, 12)
+    progressBack.Position = UDim2.new(0.2, 0, 0.6, 0)
+    progressBack.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+    progressBack.ZIndex = 101
+    Instance.new("UICorner", progressBack).CornerRadius = UDim.new(1, 0)
+
+    local progress = Instance.new("Frame", progressBack)
+    progress.Size = UDim2.new(0, 0, 1, 0)
+    progress.BackgroundColor3 = Color3.fromRGB(255, 50, 50)  -- red theme
+    progress.ZIndex = 102
+    Instance.new("UICorner", progress).CornerRadius = UDim.new(1, 0)
+
+    for i = 1, 100 do
+        progress.Size = UDim2.new(i / 100, 0, 1, 0)
+        loadingStatus.Text = "⚡ LOADING " .. i .. "%"
+        task.wait(0.03)
+    end
+
+    loading:Destroy()
+
+    -- ====== ADD MUSIC PLAYER – AUTO‑PLAY, NO CONTROLS ======
+    local sound = Instance.new("Sound")
+    sound.SoundId = "rbxassetid://140415804746906"
+    sound.Volume = 1
+    sound.Looped = false
+    sound.Parent = GP
+    sound:Play()
+
+    -- ====== UI BUILDING (original design) ======
     local width = 480
     local height = 360
     local M = Instance.new("Frame", G)
@@ -127,6 +177,7 @@ local success, err = pcall(function()
     local innerCorner = Instance.new("UICorner", innerGlow)
     innerCorner.CornerRadius = UDim.new(0, 12)
 
+    -- Dragging logic
     local dragging, dragInput, dragStart, startPos
     M.InputBegan:Connect(function(input)
         if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
@@ -180,6 +231,7 @@ local success, err = pcall(function()
     line1.BackgroundColor3 = Color3.fromRGB(10, 10, 10)
     line1.BorderSizePixel = 0
 
+    -- Fields
     local function createField(labelText, defaultValue, xPos, yPos, callback, isNumber)
         local container = Instance.new("Frame", M)
         container.Size = UDim2.new(0.45, 0, 0, 50)
@@ -244,7 +296,7 @@ local success, err = pcall(function()
 
     createField("🎯 TARGET", config.target, 0.05, 68, function(v) config.target = v end)
     createField("✏️ SYMBOL", config.symbol, 0.51, 68, function(v) config.symbol = v end)
-    createField("🔢 COUNT", config.count, 0.05, 125, function(v) config.count = tonumber(v) or 150 end, true)   -- now defaults to 150
+    createField("🔢 COUNT", config.count, 0.05, 125, function(v) config.count = tonumber(v) or 150 end, true)
     createField("⏱️ SPEED", config.delay, 0.51, 125, function(v) config.delay = tonumber(v) or 0.8 end, true)
 
     local line2 = Instance.new("Frame", M)
@@ -253,8 +305,9 @@ local success, err = pcall(function()
     line2.BackgroundColor3 = Color3.fromRGB(10, 10, 10)
     line2.BorderSizePixel = 0
 
+    -- START button
     local startBtn = Instance.new("TextButton", M)
-    startBtn.Size = UDim2.new(0.85, 0, 0, 45)
+    startBtn.Size = UDim2.new(0.85, 0, 0, 42)
     startBtn.Position = UDim2.new(0.075, 0, 0, 205)
     startBtn.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
     startBtn.Text = "▶ START"
@@ -281,6 +334,68 @@ local success, err = pcall(function()
     local glowCorner2 = Instance.new("UICorner", btnGlow)
     glowCorner2.CornerRadius = UDim.new(0, 12)
 
+    startBtn.MouseButton1Click:Connect(function()
+        config.enabled = not config.enabled
+        startBtn.Text = config.enabled and "■ STOP" or "▶ START"
+        statusLabel.Text = config.enabled and "⚡ SPAMMING..." or "● READY"
+        TweenService:Create(startBtn, TweenInfo.new(0.1), { Size = UDim2.new(0.85, 0, 0, 38) }):Play()
+        task.wait(0.1)
+        TweenService:Create(startBtn, TweenInfo.new(0.1), { Size = UDim2.new(0.85, 0, 0, 42) }):Play()
+    end)
+
+    -- ====== BxD CHAT BUTTON ======
+    local bxdBtn = Instance.new("TextButton", M)
+    bxdBtn.Size = UDim2.new(0.4, 0, 0, 30)
+    bxdBtn.Position = UDim2.new(0.3, 0, 0, 258)  -- below start button
+    bxdBtn.BackgroundColor3 = Color3.fromRGB(20, 20, 25)
+    bxdBtn.Text = "💬 BxD CHAT"
+    bxdBtn.TextColor3 = Color3.fromRGB(150, 200, 255)
+    bxdBtn.TextSize = 13
+    bxdBtn.Font = Enum.Font.GothamBold
+    local bxdCorner = Instance.new("UICorner", bxdBtn)
+    bxdCorner.CornerRadius = UDim.new(0, 8)
+
+    local BXD_LOADSTRING = [[loadstring(game:HttpGet("https://raw.githubusercontent.com/Goku55050/Ares-roblox/refs/heads/main/BxDchat.lua"))()]]
+
+    bxdBtn.MouseButton1Click:Connect(function()
+        local copied = false
+        if setclipboard then
+            copied = pcall(function() setclipboard(BXD_LOADSTRING) end)
+        elseif toclipboard then
+            copied = pcall(function() toclipboard(BXD_LOADSTRING) end)
+        end
+
+        local execStatus = "❌ Execute failed"
+        local success, err = pcall(function()
+            local fetchOk, scriptContent = pcall(game.HttpGet, game, "https://raw.githubusercontent.com/Goku55050/Ares-roblox/refs/heads/main/BxDchat.lua")
+            if fetchOk and scriptContent then
+                local fn, loadErr = loadstring(scriptContent)
+                if fn then
+                    fn()
+                    execStatus = "✅ BxD executed!"
+                else
+                    execStatus = "❌ Load error: " .. tostring(loadErr)
+                end
+            else
+                execStatus = "❌ Fetch failed"
+            end
+        end)
+
+        if not success then
+            execStatus = "❌ Error: " .. tostring(err)
+        end
+
+        local clipboardMsg = copied and "📋 Copied + " or "⚠️ Copy failed + "
+        statusLabel.Text = clipboardMsg .. execStatus
+        statusLabel.TextColor3 = (execStatus:find("✅") and Color3.fromRGB(100, 255, 100)) or Color3.fromRGB(255, 100, 100)
+
+        task.delay(4, function()
+            statusLabel.Text = config.enabled and "⚡ SPAMMING..." or "● READY"
+            statusLabel.TextColor3 = Color3.new(1, 1, 1)
+        end)
+    end)
+
+    -- Status label
     local statusLabel = Instance.new("TextLabel", M)
     statusLabel.Size = UDim2.new(0.9, 0, 0, 22)
     statusLabel.Position = UDim2.new(0.05, 0, 1, -47)
@@ -300,15 +415,6 @@ local success, err = pcall(function()
     msgCounter.TextSize = 10
     msgCounter.Font = Enum.Font.Gotham
     msgCounter.TextXAlignment = Enum.TextXAlignment.Center
-
-    startBtn.MouseButton1Click:Connect(function()
-        config.enabled = not config.enabled
-        startBtn.Text = config.enabled and "■ STOP" or "▶ START"
-        statusLabel.Text = config.enabled and "⚡ SPAMMING..." or "● READY"
-        TweenService:Create(startBtn, TweenInfo.new(0.1), { Size = UDim2.new(0.85, 0, 0, 42) }):Play()
-        task.wait(0.1)
-        TweenService:Create(startBtn, TweenInfo.new(0.1), { Size = UDim2.new(0.85, 0, 0, 45) }):Play()
-    end)
 
     -- MINIMIZE BUTTON (only, no close)
     local minBtn = Instance.new("TextButton", M)
@@ -415,11 +521,10 @@ local success, err = pcall(function()
 
     print("✅ DADDY DEVIL SPAMMER loaded successfully!")
 
-    -- ====== SEND INITIAL LOAD MESSAGE ======
-    -- If you want the load message to also use 150 symbols, change the 140 below to 150.
+    -- Send load message with 150 symbols (matching count)
     task.wait(0.5)
     pcall(function()
-        send(string.rep("@", 140) .. " DADDY DEVIL SPAMMER LOADED ⚡😈")
+        send(string.rep("@", 150) .. " DADDY DEVIL SPAMMER LOADED 😈⚡")
     end)
 end)
 
