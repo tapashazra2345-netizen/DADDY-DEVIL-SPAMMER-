@@ -1,5 +1,6 @@
 -- ============================================
 -- DADDY DEVIL SPAMMER – DELTA OPTIMIZED
+-- + ENHANCED LOADING SCREEN (Devil Red Neon)
 -- + MULTI TARGET (10 SLOTS, 5x2 GRID)
 -- + RX CHAT (auto-execute)
 -- + MESSAGE EDITOR
@@ -93,50 +94,128 @@ local success, err = pcall(function()
     G.IgnoreGuiInset = true
     G.Parent = GP
 
-    -- ===== LOADING SCREEN =====
+    -- ===== ENHANCED LOADING SCREEN – DEVIL RED NEON =====
     local loading = Instance.new("Frame", G)
     loading.Size = UDim2.fromScale(1, 1)
     loading.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
     loading.ZIndex = 100
 
+    -- Ambient red glow behind title
+    local glowBg = Instance.new("Frame", loading)
+    glowBg.Size = UDim2.new(0.7, 0, 0, 200)
+    glowBg.Position = UDim2.new(0.15, 0, 0.32, 0)
+    glowBg.BackgroundColor3 = Color3.fromRGB(60, 0, 0)
+    glowBg.BackgroundTransparency = 0.7
+    glowBg.BorderSizePixel = 0
+    glowBg.ZIndex = 100
+    Instance.new("UICorner", glowBg).CornerRadius = UDim.new(0, 30)
+
+    local pulseGlow = TweenService:Create(glowBg,
+        TweenInfo.new(1.2, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut, -1, true),
+        { BackgroundTransparency = 0.4 })
+    pulseGlow:Play()
+
+    -- Title
     local loadingTitle = Instance.new("TextLabel", loading)
-    loadingTitle.Size = UDim2.new(0.8, 0, 0, 70)
-    loadingTitle.Position = UDim2.new(0.1, 0, 0.35, 0)
+    loadingTitle.Size = UDim2.new(0.85, 0, 0, 80)
+    loadingTitle.Position = UDim2.new(0.075, 0, 0.34, 0)
     loadingTitle.BackgroundTransparency = 1
     loadingTitle.Text = "DADDY DEVIL SPAMMER 😈⚡"
-    loadingTitle.TextColor3 = Color3.new(1, 1, 1)
+    loadingTitle.TextColor3 = Color3.fromRGB(255, 60, 60)
     loadingTitle.TextScaled = true
     loadingTitle.Font = Enum.Font.GothamBold
     loadingTitle.ZIndex = 101
 
+    -- Title glow pulse
+    local titlePulse = TweenService:Create(loadingTitle,
+        TweenInfo.new(0.8, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut, -1, true),
+        { TextColor3 = Color3.fromRGB(255, 200, 200) })
+    titlePulse:Play()
+
+    -- Subtitle
+    local loadingSub = Instance.new("TextLabel", loading)
+    loadingSub.Size = UDim2.new(0.85, 0, 0, 25)
+    loadingSub.Position = UDim2.new(0.075, 0, 0.44, 0)
+    loadingSub.BackgroundTransparency = 1
+    loadingSub.Text = "😈 INITIALIZING DEVIL MODE 😈"
+    loadingSub.TextColor3 = Color3.fromRGB(200, 100, 100)
+    loadingSub.TextSize = 14
+    loadingSub.Font = Enum.Font.Gotham
+    loadingSub.ZIndex = 101
+
+    -- Status text
     local loadingStatus = Instance.new("TextLabel", loading)
     loadingStatus.Size = UDim2.new(0.8, 0, 0, 30)
-    loadingStatus.Position = UDim2.new(0.1, 0, 0.5, 0)
+    loadingStatus.Position = UDim2.new(0.1, 0, 0.52, 0)
     loadingStatus.BackgroundTransparency = 1
-    loadingStatus.Text = "⚡ LOADING..."
-    loadingStatus.TextColor3 = Color3.fromRGB(200, 200, 200)
+    loadingStatus.Text = "⚡ LOADING 0%"
+    loadingStatus.TextColor3 = Color3.fromRGB(255, 255, 255)
     loadingStatus.TextSize = 20
-    loadingStatus.Font = Enum.Font.Gotham
+    loadingStatus.Font = Enum.Font.GothamBold
     loadingStatus.ZIndex = 101
 
+    -- Progress bar container
     local progressBack = Instance.new("Frame", loading)
-    progressBack.Size = UDim2.new(0.6, 0, 0, 12)
-    progressBack.Position = UDim2.new(0.2, 0, 0.6, 0)
-    progressBack.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+    progressBack.Size = UDim2.new(0.6, 0, 0, 14)
+    progressBack.Position = UDim2.new(0.2, 0, 0.62, 0)
+    progressBack.BackgroundColor3 = Color3.fromRGB(30, 0, 0)
     progressBack.ZIndex = 101
+    progressBack.BorderSizePixel = 1
+    progressBack.BorderColor3 = Color3.fromRGB(255, 50, 50)
     Instance.new("UICorner", progressBack).CornerRadius = UDim.new(1, 0)
 
+    -- Progress fill
     local progress = Instance.new("Frame", progressBack)
     progress.Size = UDim2.new(0, 0, 1, 0)
     progress.BackgroundColor3 = Color3.fromRGB(255, 50, 50)
     progress.ZIndex = 102
+    progress.BorderSizePixel = 0
     Instance.new("UICorner", progress).CornerRadius = UDim.new(1, 0)
+
+    -- Progress glow
+    local progressGlow = Instance.new("Frame", progress)
+    progressGlow.Size = UDim2.new(1, 8, 1, 8)
+    progressGlow.Position = UDim2.new(0, -4, 0, -4)
+    progressGlow.BackgroundColor3 = Color3.fromRGB(255, 100, 100)
+    progressGlow.BackgroundTransparency = 0.6
+    progressGlow.BorderSizePixel = 0
+    progressGlow.ZIndex = 101
+    Instance.new("UICorner", progressGlow).CornerRadius = UDim.new(1, 0)
+
+    -- Footer
+    local tipText = Instance.new("TextLabel", loading)
+    tipText.Size = UDim2.new(0.8, 0, 0, 20)
+    tipText.Position = UDim2.new(0.1, 0, 0.67, 0)
+    tipText.BackgroundTransparency = 1
+    tipText.Text = "🔥 POWERED BY SUMIT 🔥"
+    tipText.TextColor3 = Color3.fromRGB(255, 50, 50)
+    tipText.TextSize = 12
+    tipText.Font = Enum.Font.GothamBold
+    tipText.ZIndex = 101
+
+    -- Rotating loading tips
+    local loadingTips = {
+        "⚡ LOADING DEVIL ARSENAL...",
+        "😈 SUMMONING DARK POWERS...",
+        "🔥 PREPARING SPAM ENGINE...",
+        "👿 CHARGING UP DADDY MODE...",
+        "💀 ALMOST READY..."
+    }
 
     for i = 1, 100 do
         progress.Size = UDim2.new(i / 100, 0, 1, 0)
         loadingStatus.Text = "⚡ LOADING " .. i .. "%"
+        local tipIndex = math.min(math.floor((i - 1) / 20) + 1, #loadingTips)
+        loadingSub.Text = loadingTips[tipIndex]
         task.wait(0.03)
     end
+
+    -- Fade out loading screen
+    local fadeOut = TweenService:Create(loading,
+        TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.In),
+        { BackgroundTransparency = 1 })
+    fadeOut:Play()
+    task.wait(0.4)
     loading:Destroy()
 
     -- ===== MUSIC =====
@@ -210,7 +289,7 @@ local success, err = pcall(function()
     line1.BackgroundColor3 = Color3.fromRGB(10, 10, 10)
     line1.BorderSizePixel = 0
 
-    -- ===== FIELD CREATOR (returns box) =====
+    -- ===== FIELD CREATOR =====
     local function createField(labelText, defaultValue, xPos, yPos, callback, isNumber)
         local container = Instance.new("Frame", M)
         container.Size = UDim2.new(0.45, 0, 0, 50)
@@ -862,7 +941,7 @@ local success, err = pcall(function()
         send(string.rep("~", 150) .. " DADDY DEVIL SPAMMER LOADED 😈⚡")
     end)
 
-    print("✅ DADDY DEVIL SPAMMER ready (multi target + RX + editor).")
+    print("✅ DADDY DEVIL SPAMMER ready (loading + multi + RX + editor).")
 end)
 
 if not success then
